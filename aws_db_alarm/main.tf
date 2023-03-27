@@ -109,7 +109,7 @@ resource "aws_cloudwatch_metric_alarm" "Replica_Lag_Alarm" {
 #This function is to create the alert for BurstBalance
 resource "aws_cloudwatch_metric_alarm" "Burst_Balance_Alarm" {              
   count = local.burst_balance_present ? length(var.DBInstanceIdentifier) : 0
-  alarm_name          = "testing_Critical | AWS INF | RDS |  ${element(var.DBInstanceIdentifier, count.index)} | BurstBalance breached Lower Threshold"
+  alarm_name          = "Critical | AWS INF | RDS |  ${element(var.DBInstanceIdentifier, count.index)} | BurstBalance breached Lower Threshold"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = 2
   metric_name         = "BurstBalance"
