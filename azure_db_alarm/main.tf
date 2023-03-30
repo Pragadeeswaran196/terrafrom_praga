@@ -189,7 +189,7 @@ resource "azurerm_monitor_metric_alert" "serverlog_storage_alarm" {
 
 resource "azurerm_monitor_metric_alert" "connections_failed_alarm" {
     count = local.connections_failed_present ? length(var.db_name) : 0
-  name                = "testing_Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average connections_failed GreaterThan Upper Threhold"
+  name                = "Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average connections_failed GreaterThan Upper Threhold"
   resource_group_name = var.env[0]
   scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/microsoft.dbforpostgresql/servers/${element(var.db_name, count.index)}"]
   description         = "Action will be triggered when connections_failed_alarm is greater"
