@@ -43,3 +43,13 @@ locals {
   serverlog_storage_precent_present = contains(keys(var.metrics),"serverlog_storage_percent")
   connections_failed_present = contains(keys(var.metrics),"connections_failed")
 }
+
+variable "DB_check" {
+  description = <<EOT
+  The given DB is flexi server ? (yes/no)
+  EOT
+  type = string 
+}
+ locals{
+  check = (var.DB_check == "yes") ? "Microsoft.DBforPostgreSQL/flexibleServers" : "microsoft.dbforpostgresql/servers"
+ }
