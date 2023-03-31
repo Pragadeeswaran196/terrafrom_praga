@@ -1,4 +1,4 @@
-/*
+*
 resource "azurerm_monitor_action_group" "main" {
   name                = "example-actiongroup"
   resource_group_name = "prod"
@@ -15,13 +15,13 @@ resource "azurerm_monitor_metric_alert" "cpu_alarm" {
     count = local.cpu_present ? length(var.db_name) : 0
   name                = "Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average cpu_percent GreaterThan Upper Threhold"
   resource_group_name = var.env[0]
-  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/microsoft.dbforpostgresql/servers/${element(var.db_name, count.index)}"]
+  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/${local.check}/${element(var.db_name, count.index)}"]
   description         = "Action will be triggered when cpu_alarm is greater"
   frequency                = "PT1M"
   window_size              = "PT5M"
   severity                 = 0
   criteria {
-    metric_namespace = "Microsoft.DBforPostgreSQL/servers"
+    metric_namespace = "${local.check}"
     metric_name      = "cpu_percent"
     aggregation      = "Average"
     operator         = "GreaterThan"
@@ -45,13 +45,13 @@ resource "azurerm_monitor_metric_alert" "memory_alarm" {
     count = local.memory_present ? length(var.db_name) : 0
   name                = "Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average memory_percent GreaterThan Upper Threhold"
   resource_group_name = var.env[0]
-  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/microsoft.dbforpostgresql/servers/${element(var.db_name, count.index)}"]
+  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/${local.check}/${element(var.db_name, count.index)}"]
   description         = "Action will be triggered when memory_alarm is greater"
   frequency                = "PT1M"
   window_size              = "PT5M"
   severity                 = 0
   criteria {
-    metric_namespace = "Microsoft.DBforPostgreSQL/servers"
+    metric_namespace = "${local.check}"
     metric_name      = "memory_percent"
     aggregation      = "Average"
     operator         = "GreaterThan"
@@ -75,13 +75,13 @@ resource "azurerm_monitor_metric_alert" "storage_alarm" {
     count = local.storage_present ? length(var.db_name) : 0
   name                = "Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average storage_percent GreaterThan Upper Threhold"
   resource_group_name = var.env[0]
-  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/microsoft.dbforpostgresql/servers/${element(var.db_name, count.index)}"]
+  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/${local.check}/${element(var.db_name, count.index)}"]
   description         = "Action will be triggered when storage_alarm is greater"
   frequency                = "PT1M"
   window_size              = "PT5M"
   severity                 = 0
   criteria {
-    metric_namespace = "Microsoft.DBforPostgreSQL/servers"
+    metric_namespace = "${local.check}"
     metric_name      = "storage_percent"
     aggregation      = "Average"
     operator         = "GreaterThan"
@@ -104,13 +104,13 @@ resource "azurerm_monitor_metric_alert" "io_consumption_percent_alarm" {
     count = local.io_consumption_percent_present ? length(var.db_name) : 0
   name                = "Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average io_consumption_percent GreaterThan Upper Threhold"
   resource_group_name = var.env[0]
-  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/microsoft.dbforpostgresql/servers/${element(var.db_name, count.index)}"]
+  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/${local.check}/${element(var.db_name, count.index)}"]
   description         = "Action will be triggered when io_consumption_present_alarm is greater."
   frequency                = "PT1M"
   window_size              = "PT5M"
   severity                 = 0
   criteria {
-    metric_namespace = "Microsoft.DBforPostgreSQL/servers"
+    metric_namespace = "${local.check}"
     metric_name      = "io_consumption_percent"
     aggregation      = "Average"
     operator         = "GreaterThan"
@@ -133,13 +133,13 @@ resource "azurerm_monitor_metric_alert" "active_connections_alarm" {
     count = local.active_connections_present ? length(var.db_name) : 0
   name                = "Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average active_connections GreaterThan Upper Threhold"
   resource_group_name = var.env[0]
-  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/microsoft.dbforpostgresql/servers/${element(var.db_name, count.index)}"]
+  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/${local.check}/${element(var.db_name, count.index)}"]
   description         = "Action will be triggered when active_connections_alarm is greater."
   frequency                = "PT1M"
   window_size              = "PT5M"
   severity                 = 0
   criteria {
-    metric_namespace = "Microsoft.DBforPostgreSQL/servers"
+    metric_namespace = "${local.check}"
     metric_name      = "active_connections"
     aggregation      = "Average"
     operator         = "GreaterThan"
@@ -162,13 +162,13 @@ resource "azurerm_monitor_metric_alert" "serverlog_storage_alarm" {
     count = local.serverlog_storage_precent_present ? length(var.db_name) : 0
   name                = "Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average serverlog_storage_percent GreaterThan Upper Threhold"
   resource_group_name = var.env[0]
-  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/microsoft.dbforpostgresql/servers/${element(var.db_name, count.index)}"]
+  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/${local.check}/${element(var.db_name, count.index)}"]
   description         = "Action will be triggered when serverlog_storage_alarm is greater"
   frequency                = "PT1M"
   window_size              = "PT5M"
   severity                 = 0
   criteria {
-    metric_namespace = "Microsoft.DBforPostgreSQL/servers"
+    metric_namespace = "${local.check}"
     metric_name      = "serverlog_storage_percent"
     aggregation      = "Average"
     operator         = "GreaterThan"
@@ -191,13 +191,13 @@ resource "azurerm_monitor_metric_alert" "connections_failed_alarm" {
     count = local.connections_failed_present ? length(var.db_name) : 0
   name                = "Critical | prod | Azure US | microsoft.dbforpostgresql-servers | ${element(var.db_name, count.index)} | ${var.env[1]} | Average connections_failed GreaterThan Upper Threhold"
   resource_group_name = var.env[0]
-  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/microsoft.dbforpostgresql/servers/${element(var.db_name, count.index)}"]
+  scopes              = ["/subscriptions/87a888f1-2e99-44d3-8a58-dc56744d321d/resourcegroups/prod/providers/${local.check}/${element(var.db_name, count.index)}"]
   description         = "Action will be triggered when connections_failed_alarm is greater"
   frequency                = "PT1M"
   window_size              = "PT5M"
   severity                 = 0
   criteria {
-    metric_namespace = "Microsoft.DBforPostgreSQL/servers"
+    metric_namespace = "${local.check}"
     metric_name      = "connections_failed"
     aggregation      = "Total"
     operator         = "GreaterThan"
