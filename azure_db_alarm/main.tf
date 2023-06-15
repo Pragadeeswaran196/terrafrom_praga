@@ -1,4 +1,4 @@
-*
+/*
 resource "azurerm_monitor_action_group" "main" {
   name                = "example-actiongroup"
   resource_group_name = "prod"
