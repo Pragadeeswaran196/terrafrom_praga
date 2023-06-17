@@ -25,9 +25,8 @@ variable "metrics" {
   -cpu
   -memory
   -storage
-  -io_consumption_percent
+  -iops
   -active_connections
-  -serverlog_storage_percent
   -connections_failed
   Please enter the requried metrics for the DB in the form of dictionary Ex : {cpu = 90 , memory = 1073741824 #1GB in bytes}
   EOT
@@ -38,9 +37,8 @@ locals {
   cpu_present = contains(keys(var.metrics), "cpu")
   memory_present = contains(keys(var.metrics), "memory")
   storage_present = contains(keys(var.metrics),"storage")
-  io_consumption_percent_present = contains(keys(var.metrics),"io_consumption_percent")
+  io_consumption_percent_present = contains(keys(var.metrics),"iops")
   active_connections_present = contains(keys(var.metrics),"active_connections")
-  serverlog_storage_precent_present = contains(keys(var.metrics),"serverlog_storage_percent")
   connections_failed_present = contains(keys(var.metrics),"connections_failed")
 }
 
